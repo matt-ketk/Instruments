@@ -12,14 +12,33 @@ class Evora(object):
 
     def getStatus(self):
         """
-        No input needed. Returns an integer value representing the camera status.  E.g. 20075 means
-        the camera is uninitialized.
+        No input needed. Returns two integer values:
+        status[0]: got status:
+            #define DRV_SUCCESS 20002
+            #define DRV_NOT_INITIALIZED 20075
+        status[1]: camera status:
+            #define DRV_IDLE 20073
+            #define DRV_TEMPCYCLE 20074
+            #define DRV_ACQUIRING 20072
+            #define DRV_ACCUM_TIME_NOT_MET 20023
+            #define DRV_KINETIC_TIME_NOT_MET 20022
+            #define DRV_ERROR_ACK 20013
+            #define DRV_ACQ_BUFFER 20018
+            #define DRV_ACQ_DOWNFIFO_FULL 20019
+            #define DRV_SPOOLERROR 20026        
         """
-        # if the first status[0] is 20075 then the camera is not initialized yet and
-        # one needs to run the startup method.
+        GetStatusReturnValues = {
+            20073:'idle', 
+            20074:'tempcycle'
+            # add all return statements here
+        }
         status = andor.GetStatus()
-        return "status " + str(status[0]) + "," + str(status[1])
-
+        
+        if (status[0]==20002):
+            return GetStatusReturnValues[ status[1] ]
+        return 'not initialized'
+   
+    
     def startup(self):
         """
         20002 is the magic number.  Any different number and it didn't work.
