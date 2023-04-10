@@ -128,7 +128,7 @@ class Dummy:
                 return {
                     'min' : min_temp,
                     'max' : max_temp,
-                    'status' : DRV_SUCCESSsetExpo
+                    'status' : DRV_SUCCESS
                 }
             else:
                 return {

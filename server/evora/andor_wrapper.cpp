@@ -60,8 +60,8 @@ PYBIND11_MODULE(andor_wrapper, m) {
                                     int funcStatus;
                                     py::dict out;
                                     funcStatus = GetStatus(&status);
-                                    out["status"] = status;
-                                    out["funcstatus"] = funcStatus;
+                                    out["camerastatus"] = status;
+                                    out["status"] = funcStatus;
                                     return out;
                                 },	                    "Get camera status");
 
